@@ -1,24 +1,22 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-import Audio,Video,Image,folder
+import Audio,Video,Image,folder,about
 class main (qt.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Advanced media player")
         self.الخيارات=qt.QListWidget()
-        self.الخيارات.clicked.connect(self.play)
+        self.الخيارات.clicked.connect(self.play)        
         self.الخيارات.addItem("فتح مجلد")
         self.الخيارات.addItem("تشغيل فيديو")
         self.الخيارات.addItem("تشغيل صوت")
         self.الخيارات.addItem("عرض صورة")
         self.الخيارات.addItem("دليل المستخدم, مهم")
-        self.الاختيار=qt.QPushButton("إختيار")
-        self.الاختيار.setShortcut("return")
-        self.الاختيار.clicked.connect(self.play)
+        self.الخيارات.addItem("عن المطور")
+        qt1.QShortcut("return",self).activated.connect(self.play)
         l=qt.QVBoxLayout()        
-        l.addWidget(self.الخيارات)
-        l.addWidget(self.الاختيار)
+        l.addWidget(self.الخيارات)        
         w=qt.QWidget()
         w.setLayout(l)
         self.setCentralWidget(w)        
@@ -46,6 +44,8 @@ class main (qt.QMainWindow):
 لفتح الcombobox نقوم بالضغط على alt زائد سهم لأسفل.                                       
 تحذير, يرجى عدم استخدام هذه الاختصارات عندما يكون المؤشر في مربع الكتابة, يرجى أيضا عدم الخروج من أي نافذة في حالة تشغيل أي مقطع قبل إيقافه أولا.
 مع تحياتي, مطور البرنامج عبد الرحمن محمد """)
+        if العناصر==5:
+          about.dialog(self)      .exec()
 app=qt.QApplication([])
 app.setStyle('fusion')
 w=main()

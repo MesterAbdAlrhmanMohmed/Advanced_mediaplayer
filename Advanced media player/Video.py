@@ -10,12 +10,9 @@ class dialog(qt.QDialog):
         self.الخيارات.clicked.connect(self.play)
         self.الخيارات.addItem("تشغيل فيديو من الكمبيوتر")
         self.الخيارات.addItem("تشغيل فيديو من الإنترنت")
-        self.الاختيار=qt.QPushButton("إختيار")
-        self.الاختيار.setShortcut("return")
-        self.الاختيار.clicked.connect(self.play)
+        qt1.QShortcut("return",self).activated.connect(self.play)
         l=qt.QVBoxLayout(self)                            
-        l.addWidget(self.الخيارات)
-        l.addWidget(self.الاختيار)
+        l.addWidget(self.الخيارات)        
     def play(self):
         العناصر=self.الخيارات.currentRow()
         if العناصر ==0:
