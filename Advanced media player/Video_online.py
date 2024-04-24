@@ -28,12 +28,48 @@ class dialog(qt.QDialog):
         qt1.QShortcut("up",self).activated.connect(lambda: self.m.setPosition(self.m.position()+10000))
         qt1.QShortcut("down",self).activated.connect(lambda: self.m.setPosition(self.m.position()-10000))
         qt1.QShortcut("s",self).activated.connect(lambda: self.m.stop())
+        qt1.QShortcut("ctrl+1",self).activated.connect(self.t10)
+        qt1.QShortcut("ctrl+2",self).activated.connect(self.t20)
+        qt1.QShortcut("ctrl+3",self).activated.connect(self.t30)
+        qt1.QShortcut("ctrl+4",self).activated.connect(self.t40)
+        qt1.QShortcut("ctrl+5",self).activated.connect(self.t50)
+        qt1.QShortcut("ctrl+6",self).activated.connect(self.t60)
+        qt1.QShortcut("ctrl+7",self).activated.connect(self.t70)
+        qt1.QShortcut("ctrl+8",self).activated.connect(self.t80)
+        qt1.QShortcut("ctrl+9",self).activated.connect(self.t90)
         l=qt.QVBoxLayout(self)                                    
         l.addWidget(self.نوع)
         l.addWidget(self.التعديل)
         l.addWidget(self.vw)
         l.addWidget(self.التشغيل)
         self.m.setAudioOutput(self.w)        
+    def t10(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.1))
+    def t20(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.2))
+    def t30(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.3))
+    def t40(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.4))
+    def t50(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.5))
+    def t60(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.6))
+    def t70(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.7))
+    def t80(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.8))
+    def t90(self): 
+        total_duration = self.m.duration()
+        self.m.setPosition(int(total_duration * 0.9))        
     def play_b(self):
         try:
             النوع=self.نوع.currentIndex()
