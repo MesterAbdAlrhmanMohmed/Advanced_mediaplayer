@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-import folder_a,folder_i,folder_v,folder_all
+import folder_Audio,folder_Image,folder_Video,folder_all
 class dialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -23,10 +23,10 @@ class dialog(qt.QDialog):
     def s(self):
         العناصر=self.القائمة.currentRow()
         if العناصر==0:
-            folder_a.dialog(self).exec()
+            folder_Audio.dialog(self).exec()
         if العناصر==1:
-            folder_v.dialog(self).exec()
+            folder_Video.dialog(self).exec()
         if العناصر==2:
-            folder_i.dialog(self).exec()
+            folder_Image.dialog(self).exec()
         if العناصر==3:
             folder_all.dialog(self).exec()

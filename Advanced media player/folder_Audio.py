@@ -7,15 +7,13 @@ from PyQt6.QtMultimediaWidgets import QVideoWidget
 class dialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)        
-        self.showFullScreen()
         self.m=QMediaPlayer()
-        self.w=QAudioOutput()
-        self.vw=QVideoWidget()        
-        self.m.setVideoOutput(self.vw)
-        self.setWindowTitle("الفيديوهات")
+        self.w=QAudioOutput()        
+        self.setWindowTitle("الصوتيات")
         self.فتح=qt.QPushButton("فتح مجلد")
         self.فتح.setDefault(True)
-        self.فتح.clicked.connect(self.opinFile)        
+        self.فتح.clicked.connect(self.opinFile)
+        self.إظهار=qt.QLabel("مسار المجلد")
         self.التعديل=qt.QLineEdit()
         self.التعديل.setReadOnly(True)
         self.التعديل.setAccessibleName("مسار المجلد")
@@ -24,11 +22,15 @@ class dialog(qt.QDialog):
         self.تشغيل.setDefault(True)
         self.تشغيل.clicked.connect(self.play)        
         qt1.QShortcut("space",self).activated.connect(lambda: self.m.pause())
-        qt1.QShortcut("r",self).activated.connect(lambda: self.m.play())        
+        qt1.QShortcut("r",self).activated.connect(lambda: self.m.play())
         qt1.QShortcut("right",self).activated.connect(lambda: self.m.setPosition(self.m.position()+5000))
         qt1.QShortcut("left",self).activated.connect(lambda: self.m.setPosition(self.m.position()-5000))
         qt1.QShortcut("up",self).activated.connect(lambda: self.m.setPosition(self.m.position()+10000))
         qt1.QShortcut("down",self).activated.connect(lambda: self.m.setPosition(self.m.position()-10000))
+        qt1.QShortcut("ctrl+right",self).activated.connect(lambda: self.m.setPosition(self.m.position()+30000))
+        qt1.QShortcut("ctrl+left",self).activated.connect(lambda: self.m.setPosition(self.m.position()-30000))
+        qt1.QShortcut("ctrl+up",self).activated.connect(lambda: self.m.setPosition(self.m.position()+60000))
+        qt1.QShortcut("ctrl+down",self).activated.connect(lambda: self.m.setPosition(self.m.position()-60000))
         qt1.QShortcut("s",self).activated.connect(lambda: self.m.stop())
         qt1.QShortcut("ctrl+1",self).activated.connect(self.t10)
         qt1.QShortcut("ctrl+2",self).activated.connect(self.t20)
@@ -41,9 +43,9 @@ class dialog(qt.QDialog):
         qt1.QShortcut("ctrl+9",self).activated.connect(self.t90)
         l=qt.QVBoxLayout(self)                            
         l.addWidget(self.فتح)
+        l.addWidget(self.إظهار)
         l.addWidget(self.التعديل)
         l.addWidget(self.القائمة)
-        l.addWidget(self.vw)
         l.addWidget(self.تشغيل)
         self.m.setAudioOutput(self.w)
     def t10(self): 
@@ -72,7 +74,7 @@ class dialog(qt.QDialog):
         self.m.setPosition(int(total_duration * 0.8))
     def t90(self): 
         total_duration = self.m.duration()
-        self.m.setPosition(int(total_duration * 0.9))        
+        self.m.setPosition(int(total_duration * 0.9))
     def opinFile(self):
         file = qt.QFileDialog()
         file.setFileMode(qt.QFileDialog.FileMode.Directory)
@@ -85,7 +87,7 @@ class dialog(qt.QDialog):
             video_formats=['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.3gp', '.webm', '.rm', '.m2ts', '.vob', '.mts', '.mxf']
             image_formats=['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.psd', '.ai', '.raw', '.svg', '.heic', '.webp', '.ps']
             for file_name in os.listdir(folder_path):
-                if any(file_name.endswith(format) for format in video_formats):                    
+                if any(file_name.endswith(format) for format in audio_formats):                    
                     self.القائمة.addItem(file_name)
     def play(self):
         if not self.القائمة.currentIndex():
@@ -93,14 +95,14 @@ class dialog(qt.QDialog):
         file_name=self.القائمة.currentText()
         folder_path=self.التعديل.text()
         file_path=os.path.join(folder_path, file_name)                
-        video_formats=['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.3gp', '.webm', '.rm', '.m2ts', '.vob', '.mts', '.mxf']
+        audio_formats=['.mp3', '.wav', '.wma', '.aac', '.m4a', '.flac', '.ogg', '.opus', '.ape', '.mpga', '.alac', '.wv', '.mka']        
         self.m.setSource(qt2.QUrl.fromLocalFile(file_path))            
-        if os.path.isfile(file_path) and any(file_path.endswith(format) for format in video_formats):
+        if os.path.isfile(file_path) and any(file_path.endswith(format) for format in audio_formats):
             if self.m.isPlaying():
-                self.m.pause()    
+                self.m.pause()
                 self.تشغيل.setText("تشغيل")
             else:                
                 self.m.play()
-                self.تشغيل.setText("إيقاف مؤقت")            
+                self.تشغيل.setText("إيقاف مؤقت")                                                            
         else:
-            qt.QMessageBox.warning(self, "تنبيه", "يرجى تحديد ملف فيديو صالح للتشغيل")
+            qt.QMessageBox.warning(self, "تنبيه", "يرجى تحديد ملف صوتي صالح للتشغيل")
