@@ -3,8 +3,8 @@ from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
 import Audio,Video,Image,folder,about
 class main (qt.QMainWindow):
-    def __init__(self):
-        super().__init__()
+    def __init__(self):        
+        super().__init__()                        
         self.setWindowTitle("Advanced media player")
         self.الخيارات=qt.QListWidget()
         self.الخيارات.clicked.connect(self.play)        

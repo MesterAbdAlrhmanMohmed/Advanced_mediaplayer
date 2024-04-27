@@ -31,8 +31,10 @@ class dialog(qt.QDialog):
             self.populateComboBox(folder_path)
     def populateComboBox(self, folder_path):
         self.القائمة.clear()  
-        self.القائمة.addItem("محتوا المجلد")
-        image_formats = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.psd', '.ai', '.raw', '.svg', '.heic', '.webp', '.ps']
+        self.القائمة.addItem("محتوا المجلد")        
+        audio_formats=['.mp3', '.wav', '.wma', '.aac', '.m4a', '.flac', '.ogg', '.opus', '.ape', '.mpga', '.alac', '.wv', '.mka','.aiff','.au','.dss','.iff','.m4r']
+        video_formats=['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.3gp', '.webm', '.rm', '.m2ts', '.vob', '.mts', '.mxf','.SWF','.AV1','.VP9']
+        image_formats=['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.psd', '.ai', '.raw', '.svg', '.heic', '.webp', '.ps','.EPS','.PCT','.TGA','.FITS','.JP2']
         for file_name in os.listdir(folder_path):
             if any(file_name.endswith(format) for format in image_formats):
                 self.القائمة.addItem(file_name)
