@@ -85,9 +85,9 @@ class dialog(qt.QDialog):
             self.التعديل.setText(folder_path)  # تحديث مربع النص بالمسار الكامل للمجلد
             self.القائمة.clear()  # مسح قائمة العناصر الحالية
             self.القائمة.addItem("محتوا المجلد")
-            audio_formats=['.mp3', '.wav', '.wma', '.aac', '.m4a', '.flac', '.ogg', '.opus', '.ape', '.mpga', '.alac', '.wv', '.mka','.aiff','.au','.dss','.iff','.m4r']
-            video_formats=['.mp4', '.mkv', '.avi', '.mov', '.wmv', '.flv', '.3gp', '.webm', '.rm', '.m2ts', '.vob', '.mts', '.mxf','.SWF','.AV1','.VP9']
-            image_formats=['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.psd', '.ai', '.raw', '.svg', '.heic', '.webp', '.ps','.EPS','.PCT','.TGA','.FITS','.JP2']
+            audio_formats = [".mp3", ".wav", ".wma", ".aac", ".m4a", ".flac", ".ogg", ".opus", ".ape", ".mpga", ".alac", ".wv", ".mka", ".aiff", ".au", ".dss", ".iff", ".m4r", ".m4b", ".midi", ".mid", ".ac3", ".tta", ".m3u"]
+            video_formats = [".mp4", ".mkv", ".avi", ".mov", ".wmv", ".flv", ".3gp", ".webm", ".rm", ".m2ts", ".vob", ".mts", ".mxf", ".SWF", ".AV1", ".VP9", ".MPG", ".M4V", ".WMV", ".ASF", ".mpeg", ".ogv", ".rmvb", ".divx", ".m2v"]
+            image_formats = [".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".psd", ".ai", ".raw", ".svg", ".heic", ".webp", ".ps", ".EPS", ".PCT", ".TGA", ".FITS", ".JP2", ".EXR", ".PBM", ".ico", ".tif", ".tga", ".pcx", ".jif", ".hdr", ".dng", ".jxr", ".dib"]
             for file_name in os.listdir(folder_path):
                 if any(file_name.endswith(format) for format in video_formats):                    
                     self.القائمة.addItem(file_name)

@@ -1,11 +1,13 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-import Audio,Video,Image,folder,about
+import Audio,Video,Image,folder,about,player,sys
 class main (qt.QMainWindow):
     def __init__(self):        
-        super().__init__()                        
+        super().__init__()                                                
         self.setWindowTitle("Advanced media player")
+        if len(sys.argv) > 1:
+            player.player(self, " ".join(sys.argv[1:])).exec()
         self.الخيارات=qt.QListWidget()
         self.الخيارات.clicked.connect(self.play)        
         self.الخيارات.addItem("فتح مجلد")
