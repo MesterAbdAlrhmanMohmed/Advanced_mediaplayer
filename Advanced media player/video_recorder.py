@@ -1,0 +1,76 @@
+from PyQt6 import QtWidgets as qt
+from PyQt6 import QtGui as qt1
+from PyQt6 import QtCore as qt2
+from PyQt6.QtMultimedia import QCamera,QImageCapture,QMediaCaptureSession,QMediaRecorder,QAudioInput,QMediaFormat
+from PyQt6.QtMultimediaWidgets import QVideoWidget
+class dialog(qt.QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)                
+        self.camera=QCamera()
+        self.camera.start()
+        self.video=QVideoWidget()
+        self.media=QMediaCaptureSession()
+        self.audio=QAudioInput(self)
+        self.media.setAudioInput(self.audio)
+        self.media.setCamera(self.camera)
+        self.media.setVideoOutput(self.video)        
+        self.photo=QImageCapture(self)
+        self.media.setImageCapture(self.photo)
+        self.recorder=QMediaRecorder()
+        self.format=QMediaFormat()
+        self.format.setAudioCodec(self.format.AudioCodec.MP3)
+        self.recorder.setMediaFormat(self.format)
+        self.media.setRecorder(self.recorder)
+        self.showFullScreen()
+        self.setWindowTitle("تسجيل فيديو")
+        self.حفظ=qt.QPushButton("تحديد مكان الحفظ أولا")
+        self.حفظ.setDefault(True)
+        self.حفظ.clicked.connect(self.opinFile)
+        self.مسار=qt.QLineEdit()
+        self.مسار.setReadOnly(True)
+        self.مسار.setAccessibleName("مسار الحفظ")
+        self.تسجيل=qt.QPushButton("بدء التسجيل")
+        self.تسجيل.setDefault(True)
+        self.تسجيل.setShortcut("r")
+        self.تسجيل.clicked.connect(self.r)
+        self.مؤقت=qt.QPushButton("إيقاف مؤقت")
+        self.مؤقت.setDefault(True)
+        self.مؤقت.setShortcut("p")
+        self.مؤقت.setDisabled(True)
+        self.مؤقت.clicked.connect(self.p)
+        self.إيقاف=qt.QPushButton("إيقاف التسجيل")
+        self.إيقاف.setDefault(True)
+        self.إيقاف.setShortcut("s")
+        self.إيقاف.setDisabled(True)
+        self.إيقاف.clicked.connect(self.s)
+        l=qt.QVBoxLayout(self)                            
+        l.addWidget(self.حفظ)
+        l.addWidget(self.مسار)
+        l.addWidget(self.video)
+        l.addWidget(self.تسجيل)
+        l.addWidget(self.مؤقت)
+        l.addWidget(self.إيقاف)
+    def opinFile(self):
+        file=qt.QFileDialog()
+        file.setAcceptMode(qt.QFileDialog.AcceptMode.AcceptOpen)
+        if file.exec()==qt.QFileDialog.DialogCode.Accepted:
+            self.مسار.setText(file.selectedFiles()[0])                                         
+    def r(self):        
+        مسار=self.مسار.text()
+        if مسار:        
+            self.recorder.setOutputLocation(qt2.QUrl.fromLocalFile(مسار))
+            self.recorder.record()
+            self.تسجيل.setDisabled(True)
+            self.مؤقت.setDisabled(False)
+            self.إيقاف.setDisabled(False)
+        else:
+            qt.QMessageBox.warning(self,"تنبيه","يرجى تحديد موقع للحفظ أولا")
+    def s(self):    
+        self.recorder.stop()
+        self.تسجيل.setDisabled(False)
+        self.إيقاف.setDisabled(True)
+        self.مؤقت.setDisabled(True)        
+    def p(self):        
+        self.recorder.pause()
+        self.مؤقت.setDisabled(True)
+        self.تسجيل.setDisabled(False)    

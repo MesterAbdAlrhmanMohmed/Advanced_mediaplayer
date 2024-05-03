@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-import Audio,Video,Image,folder,about,player,sys
+import Audio,Video,Image,folder,about,player,sys,media
 class main (qt.QMainWindow):
     def __init__(self):        
         super().__init__()                                                
@@ -14,6 +14,7 @@ class main (qt.QMainWindow):
         self.الخيارات.addItem("تشغيل فيديو")
         self.الخيارات.addItem("تشغيل صوت")
         self.الخيارات.addItem("عرض صورة")
+        self.الخيارات.addItem("تسجيل وسائط")
         self.الخيارات.addItem("دليل المستخدم, مهم")
         self.الخيارات.addItem("عن المطور")
         qt1.QShortcut("return",self).activated.connect(self.play)
@@ -32,7 +33,9 @@ class main (qt.QMainWindow):
             Audio.dialog(self).exec()
         if العناصر ==3:
             Image.dialog(self).exec()
-        if العناصر ==4:
+        if العناصر==4:
+            media.dialog(self)            .exec()
+        if العناصر ==5:
             qt.QMessageBox.information(self,"دليل المستخدم","""
 1. زر المسافة: تشغيل/إيقاف مؤقت.
 2. حرف S: إيقاف.
@@ -51,7 +54,7 @@ class main (qt.QMainWindow):
 لفتح الcombobox نقوم بالضغط على alt زائد سهم لأسفل.                                       
 تحذير, يرجى عدم استخدام هذه الاختصارات عندما يكون المؤشر في مربع الكتابة, يرجى أيضا عدم الخروج من أي نافذة في حالة تشغيل أي مقطع قبل إيقافه أولا.
 مع تحياتي, مطور البرنامج عبد الرحمن محمد """)
-        if العناصر==5:
+        if العناصر==6:
           about.dialog(self)      .exec()
 app=qt.QApplication([])
 app.setStyle('fusion')
