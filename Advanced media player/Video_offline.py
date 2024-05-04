@@ -41,6 +41,8 @@ class dialog(qt.QDialog):
         qt1.QShortcut("ctrl+7",self).activated.connect(self.t70)
         qt1.QShortcut("ctrl+8",self).activated.connect(self.t80)
         qt1.QShortcut("ctrl+9",self).activated.connect(self.t90)
+        qt1.QShortcut("alt+up",self).activated.connect(self.increase_volume)
+        qt1.QShortcut("alt+down",self).activated.connect(self.decrease_volume)
         l=qt.QVBoxLayout(self)                                    
         l.addWidget(self.التعديل)
         l.addWidget(self.فتح)                
@@ -89,3 +91,11 @@ class dialog(qt.QDialog):
             self.m.setSource(qt2.QUrl.fromLocalFile(self.التعديل.text()))
             self.m.play()
             self.التشغيل.setText("إيقاف مؤقت")
+    def increase_volume(self):
+        current_volume=self.w.volume()
+        new_volume=current_volume+0.10
+        self.w.setVolume(new_volume)
+    def decrease_volume(self):
+        current_volume=self.w.volume()
+        new_volume=current_volume-0.10
+        self.w.setVolume(new_volume)
