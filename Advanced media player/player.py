@@ -14,6 +14,11 @@ class player(qt.QDialog):
         self.m.setSource(qt2.QUrl.fromLocalFile(path))
         self.m.play()
         self.showFullScreen()
+        self.التقدم = qt.QSlider(qt2.Qt.Orientation.Horizontal)
+        self.التقدم.setRange(0,100)
+        self.التقدم.setAccessibleName("االوقت المنقضي")
+        self.m.durationChanged.connect(self.update_slider)
+        self.m.positionChanged.connect(self.update_slider)
         qt1.QShortcut("space",self).activated.connect(self.play)
         qt1.QShortcut("right",self).activated.connect(lambda: self.m.setPosition(self.m.position()+5000))
         qt1.QShortcut("left",self).activated.connect(lambda: self.m.setPosition(self.m.position()-5000))
@@ -35,8 +40,9 @@ class player(qt.QDialog):
         qt1.QShortcut("ctrl+9",self).activated.connect(self.t90)
         qt1.QShortcut("shift+up",self).activated.connect(self.increase_volume)
         qt1.QShortcut("shift+down",self).activated.connect(self.decrease_volume)
-        l=qt.QVBoxLayout(self)
+        l=qt.QVBoxLayout(self)                        
         l.addWidget(self.vw)        
+        l.addWidget(self.التقدم)
         self.m.setAudioOutput(self.w)        
     def play(self):
         if self.m.isPlaying():
@@ -78,3 +84,5 @@ class player(qt.QDialog):
         current_volume=self.w.volume()
         new_volume=current_volume-0.10
         self.w.setVolume(new_volume)
+    def update_slider(self):
+        self.التقدم.setValue(int((self.m.position()/self.m.duration())*100))        
