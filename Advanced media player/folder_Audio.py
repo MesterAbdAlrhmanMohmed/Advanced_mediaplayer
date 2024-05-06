@@ -26,6 +26,9 @@ class dialog(qt.QDialog):
         self.التقدم.setAccessibleName("االوقت المنقضي")
         self.m.durationChanged.connect(self.update_slider)
         self.m.positionChanged.connect(self.update_slider)
+        self.المدة=qt.QLineEdit()
+        self.المدة.setReadOnly(True)
+        self.المدة.setAccessibleName("مدة المقطع")
         qt1.QShortcut("space",self).activated.connect(lambda: self.m.pause())
         qt1.QShortcut("r",self).activated.connect(lambda: self.m.play())
         qt1.QShortcut("right",self).activated.connect(lambda: self.m.setPosition(self.m.position()+5000))
@@ -54,6 +57,7 @@ class dialog(qt.QDialog):
         l.addWidget(self.التعديل)
         l.addWidget(self.القائمة)
         l.addWidget(self.التقدم)
+        l.addWidget(self.المدة)
         l.addWidget(self.تشغيل)
         self.m.setAudioOutput(self.w)
     def t10(self): 
@@ -124,3 +128,10 @@ class dialog(qt.QDialog):
         self.w.setVolume(new_volume)
     def update_slider(self):
         self.التقدم.setValue(int((self.m.position()/self.m.duration())*100))        
+        self.time_VA()
+    def time_VA(self):
+        position = self.m.position()
+        duration = self.m.duration()
+        duration_str = qt2.QTime(0, (duration // 60000) % 60, (duration // 1000) % 60, duration % 1000).toString()
+        position_str = qt2.QTime(0, (position // 60000) % 60, (position // 1000) % 60, position % 1000).toString()
+        self.المدة.setText(f"الوقت المنقضي: {position_str}، مدة المقطع: {duration_str}")

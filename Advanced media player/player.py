@@ -14,9 +14,9 @@ class player(qt.QDialog):
         self.m.setSource(qt2.QUrl.fromLocalFile(path))
         self.m.play()
         self.showFullScreen()
-        self.تنبيه=qt.QLineEdit()
-        self.تنبيه.setReadOnly(True)
-        self.تنبيه.setText("تحياتي مطور البرنامج, عبد الرحمن محمد")
+        self.المدة=qt.QLineEdit()
+        self.المدة.setReadOnly(True)        
+        self.المدة.setAccessibleName("مدة المقطع")
         self.التقدم = qt.QSlider(qt2.Qt.Orientation.Horizontal)
         self.التقدم.setRange(0,100)
         self.التقدم.setAccessibleName("االوقت المنقضي")
@@ -45,7 +45,7 @@ class player(qt.QDialog):
         qt1.QShortcut("shift+down",self).activated.connect(self.decrease_volume)
         l=qt.QVBoxLayout(self)                        
         l.addWidget(self.vw)        
-        l.addWidget(self.تنبيه)
+        l.addWidget(self.المدة)
         l.addWidget(self.التقدم)
         self.m.setAudioOutput(self.w)        
     def play(self):
@@ -90,3 +90,10 @@ class player(qt.QDialog):
         self.w.setVolume(new_volume)
     def update_slider(self):
         self.التقدم.setValue(int((self.m.position()/self.m.duration())*100))        
+        self.time_VA()
+    def time_VA(self):
+        position = self.m.position()
+        duration = self.m.duration()
+        duration_str = qt2.QTime(0, (duration // 60000) % 60, (duration // 1000) % 60, duration % 1000).toString()
+        position_str = qt2.QTime(0, (position // 60000) % 60, (position // 1000) % 60, position % 1000).toString()
+        self.المدة.setText(f"الوقت المنقضي: {position_str}، مدة المقطع: {duration_str}")
