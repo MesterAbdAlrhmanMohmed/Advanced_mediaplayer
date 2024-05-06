@@ -19,7 +19,7 @@ class dialog(qt.QDialog):
         self.التشغيل=qt.QPushButton("تشغيل")
         self.التشغيل.setDefault(True)
         self.التشغيل.clicked.connect(self.play)
-        self.التقدم = qt.QSlider(qt2.Qt.Orientation.Horizontal)                
+        self.التقدم = qt.QSlider(qt2.Qt.Orientation.Horizontal)                        
         self.التقدم.setRange(0,100)
         self.التقدم.setAccessibleName("االوقت المنقضي")
         self.m.durationChanged.connect(self.update_slider)
@@ -103,4 +103,4 @@ class dialog(qt.QDialog):
         new_volume=current_volume-0.10
         self.w.setVolume(new_volume)        
     def update_slider(self):
-        self.التقدم.setValue(int((self.m.position()/self.m.duration())*100))        
+        self.التقدم.setValue(int((self.m.position()/self.m.duration())*100))

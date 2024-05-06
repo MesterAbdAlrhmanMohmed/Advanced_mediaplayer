@@ -16,7 +16,7 @@ class main (qt.QMainWindow):
         self.الخيارات.addItem("عرض صورة")
         self.الخيارات.addItem("تسجيل وسائط")
         self.الخيارات.addItem("دليل المستخدم, مهم")
-        self.الخيارات.addItem("عن المطور")
+        self.الخيارات.addItem("عن المطور")        
         qt1.QShortcut("return",self).activated.connect(self.play)
         l=qt.QVBoxLayout()        
         l.addWidget(self.الخيارات)        

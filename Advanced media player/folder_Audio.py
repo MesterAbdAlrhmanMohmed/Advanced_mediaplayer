@@ -111,7 +111,7 @@ class dialog(qt.QDialog):
                 self.تشغيل.setText("تشغيل")
             else:                
                 self.m.play()
-                self.تشغيل.setText("إيقاف مؤقت")                                                            
+                self.تشغيل.setText("إعادة التشغيل")
         else:
             qt.QMessageBox.warning(self, "تنبيه", "يرجى تحديد ملف صوتي صالح للتشغيل")    
     def increase_volume(self):

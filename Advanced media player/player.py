@@ -14,6 +14,9 @@ class player(qt.QDialog):
         self.m.setSource(qt2.QUrl.fromLocalFile(path))
         self.m.play()
         self.showFullScreen()
+        self.تنبيه=qt.QLineEdit()
+        self.تنبيه.setReadOnly(True)
+        self.تنبيه.setText("تحياتي مطور البرنامج, عبد الرحمن محمد")
         self.التقدم = qt.QSlider(qt2.Qt.Orientation.Horizontal)
         self.التقدم.setRange(0,100)
         self.التقدم.setAccessibleName("االوقت المنقضي")
@@ -42,6 +45,7 @@ class player(qt.QDialog):
         qt1.QShortcut("shift+down",self).activated.connect(self.decrease_volume)
         l=qt.QVBoxLayout(self)                        
         l.addWidget(self.vw)        
+        l.addWidget(self.تنبيه)
         l.addWidget(self.التقدم)
         self.m.setAudioOutput(self.w)        
     def play(self):
