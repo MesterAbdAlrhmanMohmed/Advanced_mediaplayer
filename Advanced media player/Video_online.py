@@ -4,6 +4,7 @@ from PyQt6 import QtCore as qt2
 from PyQt6.QtMultimedia import QMediaPlayer,QAudioOutput
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 from pytube import YouTube
+import pafy
 class dialog(qt.QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -90,9 +91,8 @@ class dialog(qt.QDialog):
         try:
             النوع=self.نوع.currentIndex()
             if النوع ==0:
-                الفيديو=YouTube(self.التعديل.text())
-                stream=الفيديو.streams.get_highest_resolution()
-                self.m.setSource(qt2.QUrl(stream.url))
+                الفيديو=pafy.new(self.التعديل.text())                
+                self.m.setSource(qt2.QUrl(الفيديو.getbest().url))
             if النوع ==1:
                 self.m.setSource(qt2.QUrl(self.التعديل.text()))
             self.m.play()        
