@@ -91,7 +91,7 @@ class dialog(qt.QDialog):
         try:
             النوع=self.نوع.currentIndex()
             if النوع ==0:
-                الفيديو=pafy.new(self.التعديل.text())                
+                الفيديو=pafy.new(self.التعديل.text())
                 self.m.setSource(qt2.QUrl(الفيديو.getbest().url))
             if النوع ==1:
                 self.m.setSource(qt2.QUrl(self.التعديل.text()))

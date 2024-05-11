@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets as qt
 from PyQt6 import QtGui as qt1
 from PyQt6 import QtCore as qt2
-import os
+import os,time
 from PyQt6.QtMultimedia import QMediaPlayer,QAudioOutput
 from PyQt6.QtMultimediaWidgets import QVideoWidget
 class dialog(qt.QDialog):
@@ -53,6 +53,8 @@ class dialog(qt.QDialog):
         qt1.QShortcut("ctrl+9",self).activated.connect(self.t90)
         qt1.QShortcut("shift+up",self).activated.connect(self.increase_volume)
         qt1.QShortcut("shift+down",self).activated.connect(self.decrease_volume)
+        qt1.QShortcut("shift+right",self).activated.connect(self.next)
+        qt1.QShortcut("shift+left",self).activated.connect(self.previous)
         l=qt.QVBoxLayout(self)                            
         l.addWidget(self.فتح)
         l.addWidget(self.التعديل)
@@ -137,3 +139,13 @@ class dialog(qt.QDialog):
         duration_str = qt2.QTime(0, (duration // 60000) % 60, (duration // 1000) % 60, duration % 1000).toString()
         position_str = qt2.QTime(0, (position // 60000) % 60, (position // 1000) % 60, position % 1000).toString()
         self.المدة.setText(f"الوقت المنقضي: {position_str}، مدة المقطع: {duration_str}")
+    def next(self):
+        self.القائمة.setCurrentIndex(self.القائمة.currentIndex()+1)        
+        self.m.stop()
+        time.sleep(1)
+        self.play()
+    def previous(self):
+        self.القائمة.setCurrentIndex(self.القائمة.currentIndex()-1)
+        self.m.stop()
+        time.sleep(1)
+        self.play()
