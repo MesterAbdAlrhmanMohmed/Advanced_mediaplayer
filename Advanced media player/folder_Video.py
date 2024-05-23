@@ -134,10 +134,16 @@ class dialog(qt.QDialog):
         self.التقدم.setValue(int((self.m.position()/self.m.duration())*100))        
         self.time_VA()
     def time_VA(self):
-        position = self.m.position()
-        duration = self.m.duration()
-        duration_str = qt2.QTime(0, (duration // 60000) % 60, (duration // 1000) % 60, duration % 1000).toString()
-        position_str = qt2.QTime(0, (position // 60000) % 60, (position // 1000) % 60, position % 1000).toString()
+        position=self.m.position()
+        duration=self.m.duration()
+        position_hours=(position // 3600000) % 24
+        position_minutes=(position // 60000) % 60
+        position_seconds=(position // 1000) % 60
+        duration_hours=(duration // 3600000) % 24
+        duration_minutes=(duration // 60000) % 60
+        duration_seconds=(duration // 1000) % 60
+        position_str=qt2.QTime(position_hours, position_minutes, position_seconds).toString("HH:mm:ss")
+        duration_str=qt2.QTime(duration_hours, duration_minutes, duration_seconds).toString("HH:mm:ss")        
         self.المدة.setText(f"الوقت المنقضي: {position_str}، مدة المقطع: {duration_str}")
     def next(self):
         self.القائمة.setCurrentIndex(self.القائمة.currentIndex()+1)        
